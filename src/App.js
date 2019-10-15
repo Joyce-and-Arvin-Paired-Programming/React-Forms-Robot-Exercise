@@ -1,26 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import GoodRobot from './components/GoodRobot'
+import BadRobot from './components/BadRobot'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      
+      form: {
+        inputText: ""
+      },
+      translateBla: ""
+    }
+  }
+  
+  
+  handleChange = (e) => {
+    const { form } = this.state
+    form[e.target.name] = e.target.value
+    // set state only changes the first level thus why why update form object  
+    this.setState({form})
+  }
+
+  render() {
+    const { inputText } = this.state.form
+
+    
+    return (
+      // const { inputText } = this.state.form
+
+      <div className="App">
+        <h1>Robot Active Listening</h1>
+        <React.Fragment>
+        <form>
+            <p>Say Something</p>
+            <input type="text" 
+                   name="inputText"
+                   onChange={this.handleChange}
+                   placeholder="Say Something"
+                   autoComplete="off"
+                   /> 
+          </form>
+        </React.Fragment>
+        <GoodRobot inputText = {inputText} />
+        <BadRobot inputText = {inputText} />
+
+      </div>
+    );  
+  }
 }
 
 export default App;
